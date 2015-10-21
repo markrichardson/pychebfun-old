@@ -65,7 +65,7 @@ class Polyfun(object):
         
     class DomainMismatch(Exception):
         """
-        Raised when there is an interval mismatch between 
+        Raised when there is an interval mismatch. 
         """ 
     
     @classmethod
@@ -212,16 +212,17 @@ class Polyfun(object):
         a, b = self.domain()
         vals = self.values()
         return (
-            '%s \n ' 
-            '    domain        length     endpoint values\n '
-            ' [%5.1f, %5.1f]     %5d       %5.2f   %5.2f\n '
-            'vscale = %1.2e') % (
-                str(type(self)).split('.')[-1].split('>')[0][:-1],
-                a,b,self.size(),vals[-1],vals[0],self._vscale,)    
+            "{} \n"
+            "    domain          length      endpoint values\n"
+            "[{:5.1f}, {:5.1f}]     {:5d}         {:5.2f}   {:5.2f}\n"
+            "vscale = {:1.2e}").format(
+                self.__class__.__name__, a, b,
+                self.size(), vals[-1], vals[0], 
+                self._vscale, 
+            )     
 
     def __str__(self):
-        return "<{0}({1})>".format(
-            str(type(self)).split('.')[-1].split('>')[0][:-1],self.size(),)
+        return "<{0}({1})>".format(self.__class__.__name__, self.size(), )
 
     # ----------------------------------------------------------------
     # Basic Operator Overloads
