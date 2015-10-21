@@ -424,21 +424,21 @@ class Polyfun(object):
             xi, yi = xf(self.values()), yf(self.values())
         return xs, ys, xi, yi, d
 
-
-    def plot(self, with_interpolation_points=False, *args, **kwargs):
+    def plot(self, with_interpolation_points=False, ax=None, *args, **kwargs):
         """
         Plot the fun with the additional arguments args, kwargs.
         """
         xs, ys, xi, yi, d = self.plot_data(self.plot_res)
-        axis = plt.gca()
-        axis.plot(xs, ys, *args, **kwargs)
+        if ax is None:
+            ax = plt.gca()
+        ax.plot(xs, ys, *args, **kwargs)
         if with_interpolation_points:
-            current_color = axis.lines[-1].get_color() # figure out current colour
-            axis.plot(xi, yi, marker='.', linestyle='', color=current_color)
+            current_color = ax.lines[-1].get_color() # figure out current colour
+            ax.plot(xi, yi, marker='.', linestyle='', color=current_color)
         plt.plot()
         if 2 == d:
-            axis.axis('equal')
-        return axis
+            ax.axis('equal')
+        return ax
 
     def chebcoeffplot(self, *args, **kwds):
         """
