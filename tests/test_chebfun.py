@@ -117,10 +117,17 @@ class Test_sinsinexp(unittest.TestCase):
 
     def test_all_roots(self):
         """
-        Capture all rots.
+        Capture all roots.
         """
         roots = self.p.roots()
         self.assertEqual(len(roots),22)
+
+    def test_sorted_roots(self):
+        """
+        Verfiy computed roots are returned in ascending order.
+        """
+        roots = self.p.roots()
+        self.assertEqual((np.diff(roots)<0).sum(), 0)
 
     def test_chebcoeff(self):
         new = Chebfun.from_coeff(self.p.coefficients())
